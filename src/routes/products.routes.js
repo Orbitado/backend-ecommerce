@@ -4,7 +4,8 @@ import fs from "fs"
 const router = Router();
 // La ruta raíz get deberá listar todos los productos de la base de datos.
 
-const products = JSON.parse(fs.existsSync('../data/products.json'))
+const products = await fs.promises.readFile('./data/products.json', 'utf-8');
+console.log(products)
 
 router.get('/', (req, res) => {
     res.json(products);
