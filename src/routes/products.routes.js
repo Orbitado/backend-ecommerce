@@ -25,7 +25,7 @@ router.get('/:pid', async (req, res) => {
 // La ruta raíz POST / deberá agregar un nuevo producto a la base de datos.
 router.post('/', (req, res) => {
     const { title, description, code, price, stock, category } = req.body;
-    const newId = products[products.lenght - 1].id + 1;
+    const newId = products[products.length - 1].id + 1;
 
     if(!title || !description || !code || !price || !stock || !category) {
         return res.status(400).json({ error: 'Todos los campos son obligatorios' })
@@ -37,7 +37,7 @@ router.post('/', (req, res) => {
                 code,
                 price,
                 status: true,
-                stock: products.stock + stock,
+                stock,
                 category
             }
 
@@ -45,7 +45,7 @@ router.post('/', (req, res) => {
             fs.writeFileSync('./data/products.json', JSON.stringify(products, null, '\t'));
         }
         res.json(products); 
-    } 
+} 
 )
 
 export default router
