@@ -14,4 +14,3 @@ app.listen(PORT, () => {
 })
 
 app.use('/api/products', productsRoutes);
-app.use('/api/products:pid', productsRoutes);
