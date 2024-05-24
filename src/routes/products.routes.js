@@ -4,16 +4,15 @@ import fs from "fs"
 const router = Router();
 // La ruta raíz get deberá listar todos los productos de la base de datos.
 
-const products = await fs.promises.readFile('./data/products.json', 'utf-8');
-console.log(products)
+const products = JSON.parse(fs.readFileSync('./data/products.json', 'utf-8'));
 
 router.get('/', (req, res) => {
     res.json(products);
 })
 
-router.get('/:pid', (req, res) => {
-    const { id } = req.params;
-    const product = products.find(product => product.id == id);
+router.get('/:pid', async (req, res) => {
+    const { pid } = req.params;
+    const product = await products.find(product => product.id == pid);
 
     if(!product) {
         res.status(404).json({ error: 'No se encuentra el producto con el id solicitado' })
@@ -22,4 +21,4 @@ router.get('/:pid', (req, res) => {
     }
 })
 
-export default Router
+export default router

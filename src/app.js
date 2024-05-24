@@ -14,4 +14,4 @@ app.listen(PORT, () => {
 })
 
 app.use('/api/products', productsRoutes);
-// app.use('/api/carts', cartRoutes);
+app.use('/api/products:pid', productsRoutes);
