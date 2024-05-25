@@ -45,7 +45,7 @@ product: SÓLO DEBE CONTENER EL ID DEL PRODUCTO (Es crucial que no agregues el p
 quantity: debe contener el número de ejemplares de dicho producto. El producto, de momento, se agregará de uno en uno.
 Además, si un producto ya existente intenta agregarse al producto, incrementar el campo quantity de dicho producto. */
 
-router.post('/:cid/product/:pid', async (req, res) => {
+router.post('/:cid/product/:pid', (req, res) => {
     const { cid, pid } = req.params;
     
     const cart = carts.find(cart => cart.id == cid);
