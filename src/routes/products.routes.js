@@ -67,7 +67,7 @@ router.put('/:pid', (req, res) => {
             product.stock = stock;
             product.category = category;
             fs.writeFileSync('./data/products.json', JSON.stringify(products, null, '\t'));
-            res.json(products);
+            res.json(product);
         }
     }
 })
