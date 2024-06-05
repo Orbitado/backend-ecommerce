@@ -9,7 +9,7 @@ router.get("/", (req, res) => {
 });
 
 router.get("/realTimeProducts", (req, res) => {
-    res.render("realTimeProducts", { products });
-  });
+  res.render("realTimeProducts", { products });
+});
 
 export default router;
