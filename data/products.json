@@ -28,25 +28,5 @@
 		"status": true,
 		"stock": 1,
 		"category": "category Products"
-	},
-	{
-		"id": 4,
-		"title": "HOLA SOY AMARILLDGFOFGFGGF",
-		"description": "A simple product three",
-		"code": "A3",
-		"price": 100,
-		"status": true,
-		"stock": 1,
-		"category": "category Products"
-	},
-	{
-		"id": 5,
-		"title": "Product 5",
-		"description": "A simple product five",
-		"code": "A4",
-		"price": 100,
-		"status": true,
-		"stock": 1,
-		"category": "category Products"
 	}
 ]
