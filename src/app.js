@@ -8,6 +8,8 @@ import path from "path";
 import fs from "fs";
 import { Server } from "socket.io";
 
+const products = JSON.parse(fs.readFileSync("./data/products.json", "utf-8"));
+
 const app = Express();
 const PORT = 8080;
 app.use(Express.json());
@@ -40,11 +42,13 @@ const io = new Server(httpServer);
 // Productos Socket
 
 io.on("connection", (socket) => {
-    console.log(`Cliente conectado: ${socket.id}`);
+  console.log(`Cliente conectado: ${socket.id}`);
 
-    socket.on("disconnect", () =>{
-        console.log(`Cliente desconectado: ${socket.id}`);
-    })
+  socket.on("disconnect", () => {
+    console.log(`Cliente desconectado: ${socket.id}`);
+  });
+
+  socket.emit("getProducts", products);
 });
 
 app.use("/api/products", productsRoutes);
