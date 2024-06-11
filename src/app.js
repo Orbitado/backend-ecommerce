@@ -5,12 +5,11 @@ import handlebars from "express-handlebars";
 import viewsRoutes from "./routes/views.routes.js";
 import __dirname from "./dirname.js";
 import path from "path";
+import fs from "fs";
 import { Server } from "socket.io";
 
 const app = Express();
-
 const PORT = 8080;
-
 app.use(Express.json());
 app.use(Express.urlencoded({ extended: true }));
 
@@ -39,13 +38,12 @@ app.use("/", viewsRoutes);
 const io = new Server(httpServer);
 
 // Productos Socket
-let products_list = [];
 
 io.on("connection", (socket) => {
     console.log(`Cliente conectado: ${socket.id}`);
 
-    socket.on("products_list", (data) => {
-        console.log(data)
+    socket.on("disconnect", () =>{
+        console.log(`Cliente desconectado: ${socket.id}`);
     })
 });
 
