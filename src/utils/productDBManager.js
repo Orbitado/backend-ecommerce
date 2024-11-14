@@ -3,7 +3,6 @@ import productModel from "../models/products.model.js";
 class productDBManager {
   async getAllProducts() {
     const products = await productModel.find();
-    console.log(products);
     return products;
   }
 
