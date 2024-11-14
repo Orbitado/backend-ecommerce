@@ -1,8 +1,11 @@
 <div>
-    <h1>Productos</h1>
-    <ul>
-        {{#each products}}
-            <li>{{this.title}}</li>
-        {{/each}}
-    </ul>
+  <h1>Productos MongoDb</h1>
+  <ul>
+    {{#each products}}
+      <li>
+        <h2>{{title}}</h2>
+        <p>Price: {{price}}</p>
+      </li>
+    {{/each}}
+  </ul>
 </div>

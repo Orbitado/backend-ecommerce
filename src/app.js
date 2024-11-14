@@ -5,14 +5,11 @@ import handlebars from "express-handlebars";
 import viewsRoutes from "./routes/views.routes.js";
 import __dirname from "./dirname.js";
 import path from "path";
-import fs from "fs";
 import { Server } from "socket.io";
 import { connectDb } from "./utils/mongoose.js";
 
 // mongodb connection
 connectDb();
-
-const products = JSON.parse(fs.readFileSync("./data/products.json", "utf-8"));
 
 const app = Express();
 const PORT = 8080;
@@ -29,11 +26,15 @@ app.engine(
   handlebars.engine({
     extname: "hbs",
     defaultLayout: "main",
+    runtimeOptions: {
+      allowProtoPropertiesByDefault: true,
+      allowProtoMethodsByDefault: true,
+    },
   })
 );
 
 app.set("view engine", "hbs");
-app.set("views", `${__dirname}/views`);
+app.set("views", path.resolve(`${__dirname}/views`));
 app.use(Express.static(path.resolve(__dirname, "../public")));
 
 app.use("/", viewsRoutes);

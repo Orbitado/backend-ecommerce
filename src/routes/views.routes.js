@@ -1,14 +1,17 @@
 import { Router } from "express";
-import fs from "fs";
+import { productDBManager } from "../utils/productDBManager.js";
 
 const router = Router();
-let products = JSON.parse(fs.readFileSync("./data/products.json", "utf-8"));
 
-router.get("/", (req, res) => {
+const ProductService = new productDBManager();
+
+router.get("/", async (req, res) => {
+  const products = await ProductService.getAllProducts();
   res.render("home", { products });
 });
 
-router.get("/realTimeProducts", (req, res) => {
+router.get("/realTimeProducts", async (req, res) => {
+  const products = await ProductService.getAllProducts(req.query);
   res.render("realTimeProducts", { products });
 });
 
