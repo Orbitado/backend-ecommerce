@@ -1,14 +1,22 @@
 import { hashSync, compareSync, genSaltSync } from "bcrypt";
 
 const hashPassword = (password) => {
-  const salt = genSaltSync(10);
-  const hash = hashSync(password, salt);
-  return hash;
+  try {
+    const salt = genSaltSync(10);
+    const hash = hashSync(password, salt);
+    return hash;
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 const comparePassword = (password, hash) => {
-  const result = compareSync(password, hash);
-  return result;
+  try {
+    const result = compareSync(password, hash);
+    return result;
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 export { hashPassword, comparePassword };
