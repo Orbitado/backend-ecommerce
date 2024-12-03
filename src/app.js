@@ -1,6 +1,7 @@
 import Express from "express";
 import productsRoutes from "./routes/products.routes.js";
 import cartRoutes from "./routes/carts.routes.js";
+import userRoutes from "./routes/users.routes.js";
 import handlebars from "express-handlebars";
 import viewsRoutes from "./routes/views.routes.js";
 import __dirname from "./dirname.js";
@@ -58,3 +59,4 @@ io.on("connection", (socket) => {
 
 app.use("/api/products", productsRoutes);
 app.use("/api/carts", cartRoutes);
+app.use("/api/users", userRoutes);
