@@ -12,6 +12,7 @@ import passport from "passport";
 import session from "express-session";
 import dotenv from "dotenv";
 import MongoStore from "connect-mongo";
+import sessionsRouter from "./routes/sessions.routes.js";
 
 // Variables de entorno
 dotenv.config();
@@ -48,7 +49,7 @@ app.use(Express.static(path.resolve(__dirname, "../public")));
 app.use("/", viewsRoutes);
 
 // Configuración de sesión para Passport
-const { SESSION_SECRET_KEY } = process.env;
+const SESSION_SECRET_KEY = process.env.SESSION_SECRET_KEY;
 if (!SESSION_SECRET_KEY) {
   throw new Error("SESSION_SECRET_KEY is not defined");
 }
@@ -57,11 +58,7 @@ app.use(
   session({
     secret: SESSION_SECRET_KEY,
     resave: false,
-    store: new MongoStore({
-      mongoUrl: process.env.MONGO_LINK,
-      ttl: 60 * 60 * 24,
-    }),
-    saveUninitialized: true,
+    saveUninitialized: false,
   })
 );
 app.use(passport.initialize());
@@ -84,3 +81,4 @@ io.on("connection", (socket) => {
 app.use("/api/products", productsRoutes);
 app.use("/api/carts", cartRoutes);
 app.use("/api/users", userRoutes);
+app.use("/api/sessions", sessionsRouter);

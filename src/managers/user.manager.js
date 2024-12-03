@@ -1,9 +1,9 @@
-import userModel from "../models/user.model.js";
+import UserModel from "../models/user.model.js";
 
 class userDBManager {
   async getAllUsers() {
     try {
-      const users = await userModel.find();
+      const users = await UserModel.find();
       return users;
     } catch (error) {
       console.error("Error obteniendo los usuarios", error);
@@ -13,7 +13,7 @@ class userDBManager {
 
   async getUserByID(uid) {
     try {
-      const user = await userModel.findOne({ _id: uid });
+      const user = await UserModel.findOne({ _id: uid });
       if (!user) {
         throw new Error(`Usuario con ID ${uid} no encontrado`);
       }
@@ -24,16 +24,35 @@ class userDBManager {
     }
   }
 
-  async createUser(user) {
-    if (!user) {
-      throw new Error("No se proporcionaron datos para crear el usuario");
-    }
-
+  async getUserByEmail(email) {
     try {
-      return await userModel.create(user);
+      const user = await UserModel.findOne({ email });
+      return user;
     } catch (error) {
-      console.error("Error creando el usuario", error);
+      console.error(`Error obteniendo el usuario con email ${email}`, error);
       throw error;
+    }
+  }
+
+  async createUser(userData) {
+    try {
+      if (
+        !userData.first_name ||
+        !userData.last_name ||
+        !userData.email ||
+        !userData.password
+      ) {
+        throw new Error("Faltan datos requeridos.");
+      }
+
+      const user = new UserModel(userData);
+      await user.save();
+      return user;
+    } catch (error) {
+      console.error("Error al crear el usuario:", error);
+      return res
+        .status(400)
+        .json({ error: `Error creando el usuario: ${error.message}` });
     }
   }
 
@@ -43,7 +62,7 @@ class userDBManager {
     }
 
     try {
-      const result = await userModel.updateOne({ _id: uid }, userUpdate);
+      const result = await UserModel.updateOne({ _id: uid }, userUpdate);
       if (result.nModified === 0) {
         throw new Error(`Usuario con ID ${uid} no encontrado`);
       }
@@ -60,7 +79,7 @@ class userDBManager {
     }
 
     try {
-      const result = await userModel.deleteOne({ _id: uid });
+      const result = await UserModel.deleteOne({ _id: uid });
       if (result.deletedCount === 0) {
         throw new Error(`Usuario con ID ${uid} no encontrado`);
       }

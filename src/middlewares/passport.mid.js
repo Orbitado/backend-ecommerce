@@ -12,24 +12,22 @@ passport.use(
   new LocalStrategy(
     {
       usernameField: "email",
+      passwordField: "password",
       passReqToCallback: true,
     },
     async (req, email, password, done) => {
       try {
-        const userAlreadyExist = await UserService.getUserByEmail(email);
-        if (userAlreadyExist) {
-          const info = { message: "User already exist.", statusCode: 401 };
-          return done(null, false, info);
+        const existingUser = await UserService.getUserByEmail(email);
+        if (existingUser) {
+          return done(null, false, { message: "User already exists." });
         }
+
         const hashedPassword = hashPassword(password);
-        const user = await UserService.createUser({
-          first_name,
-          last_name,
-          email,
-          age,
+        const newUser = await UserService.createUser({
+          ...req.body,
           password: hashedPassword,
         });
-        return done(null, user);
+        return done(null, newUser);
       } catch (error) {
         return done(error);
       }
@@ -74,3 +72,5 @@ passport.use(
     }
   )
 );
+
+export default passport;

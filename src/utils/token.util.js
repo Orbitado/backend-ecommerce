@@ -1,7 +1,9 @@
 import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
 
-const { JWT_SECRET } = process.env.JWT_SECRET;
+dotenv.config();
 
+const JWT_SECRET = process.env.JWT_SECRET;
 if (!JWT_SECRET) {
   throw new Error("JWT_SECRET is not defined");
 }
@@ -18,10 +20,8 @@ function verifyToken(token) {
   return isValidToken;
 }
 
-function finishToken(token) {
-  const token = jwt.sign(user, JWT_SECRET, {
-    expiresIn: 1,
-  });
+function finishToken(data) {
+  const token = jwt.sign(data, JWT_SECRET, { expiresIn: 1 });
   return token;
 }
 
