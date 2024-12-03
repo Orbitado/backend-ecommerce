@@ -8,6 +8,13 @@ import __dirname from "./dirname.js";
 import path from "path";
 import { Server } from "socket.io";
 import { connectDb } from "./utils/mongoose.js";
+import passport from "passport";
+import session from "express-session";
+import dotenv from "dotenv";
+import MongoStore from "connect-mongo";
+
+// Variables de entorno
+dotenv.config();
 
 // mongodb connection
 connectDb();
@@ -39,13 +46,29 @@ app.set("views", path.resolve(`${__dirname}/views`));
 app.use(Express.static(path.resolve(__dirname, "../public")));
 
 app.use("/", viewsRoutes);
-// Fin de la configuración de handlebars
+
+// Configuración de sesión para Passport
+const { SESSION_SECRET_KEY } = process.env;
+if (!SESSION_SECRET_KEY) {
+  throw new Error("SESSION_SECRET_KEY is not defined");
+}
+
+app.use(
+  session({
+    secret: SESSION_SECRET_KEY,
+    resave: false,
+    store: new MongoStore({
+      mongoUrl: process.env.MONGO_LINK,
+      ttl: 60 * 60 * 24,
+    }),
+    saveUninitialized: true,
+  })
+);
+app.use(passport.initialize());
+app.use(passport.session());
 
 // Configuración del servidor WebSocket
-
 const io = new Server(httpServer);
-
-// Productos Socket
 
 io.on("connection", (socket) => {
   console.log(`Cliente conectado: ${socket.id}`);
@@ -57,6 +80,7 @@ io.on("connection", (socket) => {
   socket.emit("getProducts", products);
 });
 
+// Rutas
 app.use("/api/products", productsRoutes);
 app.use("/api/carts", cartRoutes);
 app.use("/api/users", userRoutes);
