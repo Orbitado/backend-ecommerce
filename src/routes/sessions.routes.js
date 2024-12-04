@@ -57,4 +57,21 @@ router.post("/signout", passportCb("signout"), async (req, res) => {
   }
 });
 
+router.post("/current", passportCb("current"), async (req, res) => {
+  try {
+    const user = req.user;
+    if (!user) {
+      return res
+        .status(400)
+        .json({ message: "No se pudo obtener el usuario actual." });
+    }
+    res.status(200).json({ user });
+  } catch (error) {
+    res.status(500).json({
+      message: "Error interno al obtener el usuario actual.",
+      error: error.message,
+    });
+  }
+});
+
 export default router;

@@ -111,4 +111,30 @@ passport.use(
   )
 );
 
+passport.use(
+  "current",
+  new JWTStrategy(
+    {
+      jwtFromRequest: ExtractJwt.fromExtractors([(req) => req?.cookies?.token]),
+      secretOrKey: process.env.JWT_SECRET,
+    },
+    async (data, done) => {
+      try {
+        const user = await UserService.getUserByID(data.id);
+        const { active } = user;
+        if (!active) {
+          const info = {
+            message: "El usuario no esta activo.",
+            statusCode: 401,
+          };
+          return done(null, false, info);
+        }
+        return done(null, user);
+      } catch (error) {
+        return done(error);
+      }
+    }
+  )
+);
+
 export default passport;
