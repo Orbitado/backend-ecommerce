@@ -23,8 +23,8 @@ This project is a robust backend application built using Express.js, designed to
 ### Clone the repository
 
 ```bash
-git clone <repository-url>
-cd <project-directory>
+git clone https://github.com/Orbitado/backend-ecommerce.git
+cd backend-ecommerce
 ```
 
 ### Install dependencies
