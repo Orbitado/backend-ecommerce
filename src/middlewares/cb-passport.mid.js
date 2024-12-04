@@ -7,7 +7,7 @@ export const passportCb = (strategy) => {
         return next(err);
       }
       if (!user) {
-        return res.status(info.statusCode).send({
+        return res.send({
           status: "error",
           message: info.message,
         });

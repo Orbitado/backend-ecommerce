@@ -19,7 +19,9 @@ passport.use(
       try {
         const existingUser = await UserService.getUserByEmail(email);
         if (existingUser) {
-          return done(null, false, { message: "User already exists." });
+          return done(null, false, {
+            message: `El usuario con el email ${email} ya existe.`,
+          });
         }
 
         const hashedPassword = hashPassword(password);

@@ -50,9 +50,7 @@ class userDBManager {
       return user;
     } catch (error) {
       console.error("Error al crear el usuario:", error);
-      return res
-        .status(400)
-        .json({ error: `Error creando el usuario: ${error.message}` });
+      throw error;
     }
   }
 
