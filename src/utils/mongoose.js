@@ -1,17 +1,20 @@
 import mongoose from "mongoose";
+import dotenv from "dotenv";
 
-const user = "vleonardojuanpablo";
-const password = "%40EuR3K4!3710";
-const mongoDb = "products";
+dotenv.config();
+
+const { MONGO_LINK } = process.env;
+
+if (!MONGO_LINK) {
+  throw new Error("MONGO_LINK is not defined");
+}
 
 export function connectDb() {
   mongoose
-    .connect(
-      `mongodb+srv://${user}:${password}@db-test.pg3rvlv.mongodb.net/${mongoDb}`
-    )
+    .connect(MONGO_LINK)
     .then(() => {
       try {
-        console.log(`MongoDb connected to ${mongoDb}`);
+        console.log(`MongoDb connected`);
       } catch (error) {
         console.log(error);
       }
