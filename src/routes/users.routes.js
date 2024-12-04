@@ -40,15 +40,19 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.put("/:uid", async (req, res) => {
+router.put("/:pid", async (req, res) => {
+  const { pid } = req.params;
+  const userUpdate = req.body;
+
   try {
-    const user = await UserService.updateUserByID(req.params.uid, req.body);
-    res.status(200).send(user);
-  } catch (error) {
-    res.status(400).send({
-      status: "error",
-      message: error.message,
+    const result = await UserService.updateUserByID(pid, userUpdate);
+    res.status(200).json({
+      status: "success",
+      message: "Usuario actualizado correctamente",
+      result,
     });
+  } catch (error) {
+    res.status(500).json({ status: "error", message: error.message });
   }
 });
 

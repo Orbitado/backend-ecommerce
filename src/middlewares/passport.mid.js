@@ -42,19 +42,25 @@ passport.use(
   new LocalStrategy(
     {
       usernameField: "email",
+      passwordField: "password",
       passReqToCallback: true,
     },
     async (req, email, password, done) => {
+      console.log("Intento de inicio de sesión con email:", email);
+      console.log("Intento de inicio de sesión con password:", password);
       try {
         const user = await UserService.getUserByEmail(email);
         if (!user) {
-          const info = { message: "User not found.", statusCode: 401 };
+          const info = {
+            message: `Usuario con el email ${email} no encontrado.`,
+            statusCode: 401,
+          };
           return done(null, false, info);
         }
 
         const isValidPassword = comparePassword(password, user.password);
         if (!isValidPassword) {
-          const info = { message: "Invalid password.", statusCode: 401 };
+          const info = { message: "Contraseña incorrecta.", statusCode: 401 };
           return done(null, false, info);
         }
 
@@ -66,9 +72,12 @@ passport.use(
 
         const token = generateToken(userData);
         user.token = token;
-        await UserService.findByIdAndUpdate(user._id, user);
-        return done(null, user);
+        const updatedUser = await UserService.updateUserByID(user._id, user);
+        console.log("Token generado:", token);
+        console.log("Usuario autenticado:", updatedUser);
+        return done(null, updatedUser);
       } catch (error) {
+        console.error("Error en la estrategia de autenticación:", error);
         return done(error);
       }
     }

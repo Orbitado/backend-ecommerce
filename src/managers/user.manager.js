@@ -60,12 +60,22 @@ class userDBManager {
     }
 
     try {
+      // Actualizar usuario
       const result = await UserModel.updateOne({ _id: uid }, userUpdate);
-      if (result.nModified === 0) {
+
+      if (result.matchedCount === 0) {
         throw new Error(`Usuario con ID ${uid} no encontrado`);
       }
+
       return result;
     } catch (error) {
+      // Manejo específico para errores de clave duplicada
+      if (error.code === 11000) {
+        throw new Error(
+          "El correo electrónico ya está registrado por otro usuario."
+        );
+      }
+
       console.error(`Error actualizando el usuario con ID ${uid}`, error);
       throw error;
     }
