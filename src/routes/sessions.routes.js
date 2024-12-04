@@ -35,9 +35,7 @@ router.post("/login", passportCb("login"), async (req, res) => {
         .status(400)
         .json({ message: "Email o contraseña incorrectos." });
     }
-    const token = generateToken(user);
-    user.token = token;
-    await UserService.updateUserByIDByID(user._id, user);
+
     res.status(200).json({ message: "Sesión iniciada exitosamente.", user });
   } catch (error) {}
 });

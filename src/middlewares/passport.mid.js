@@ -4,6 +4,7 @@ import { Strategy as LocalStrategy } from "passport-local";
 import { hashPassword, comparePassword } from "../utils/hash.util.js";
 import { generateToken, verifyToken } from "../utils/token.util.js";
 import { userDBManager } from "../managers/user.manager.js";
+import { response } from "express";
 
 const UserService = new userDBManager();
 
@@ -72,10 +73,11 @@ passport.use(
 
         const token = generateToken(userData);
         user.token = token;
-        const updatedUser = await UserService.updateUserByID(user._id, user);
+        user.active = true;
+        await UserService.updateUserByID(user._id, user);
         console.log("Token generado:", token);
-        console.log("Usuario autenticado:", updatedUser);
-        return done(null, updatedUser);
+        console.log("Usuario autenticado:", user);
+        done(null, user);
       } catch (error) {
         console.error("Error en la estrategia de autenticación:", error);
         return done(error);
