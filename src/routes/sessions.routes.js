@@ -36,8 +36,25 @@ router.post("/login", passportCb("login"), async (req, res) => {
         .json({ message: "Email o contraseña incorrectos." });
     }
 
-    res.status(200).json({ message: "Sesión iniciada exitosamente.", user });
+    res
+      .cookie("token", user.token, { httpOnly: true })
+      .status(200)
+      .json({ message: "Sesión iniciada exitosamente.", user });
   } catch (error) {}
+});
+
+router.post("/signout", passportCb("signout"), async (req, res) => {
+  try {
+    res
+      .clearCookie("token")
+      .status(200)
+      .json({ message: "Sesión cerrada exitosamente." });
+  } catch (error) {
+    res.status(500).json({
+      message: "Error interno al cerrar la sesión.",
+      error: error.message,
+    });
+  }
 });
 
 export default router;

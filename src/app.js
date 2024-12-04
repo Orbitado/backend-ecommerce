@@ -11,8 +11,8 @@ import { connectDb } from "./utils/mongoose.js";
 import passport from "passport";
 import session from "express-session";
 import dotenv from "dotenv";
-import MongoStore from "connect-mongo";
 import sessionsRouter from "./routes/sessions.routes.js";
+import cookieParser from "cookie-parser";
 
 // Variables de entorno
 dotenv.config();
@@ -45,6 +45,7 @@ app.engine(
 app.set("view engine", "hbs");
 app.set("views", path.resolve(`${__dirname}/views`));
 app.use(Express.static(path.resolve(__dirname, "../public")));
+app.use(cookieParser());
 
 app.use("/", viewsRoutes);
 

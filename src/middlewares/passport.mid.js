@@ -1,10 +1,9 @@
 import passport from "passport";
 import { Strategy as LocalStrategy } from "passport-local";
-// import { Strategy as JWTStrategy, ExtractJwt } from "passport-jwt"; ESO MAS ADELANTE
+import { Strategy as JWTStrategy, ExtractJwt } from "passport-jwt";
 import { hashPassword, comparePassword } from "../utils/hash.util.js";
 import { generateToken, verifyToken } from "../utils/token.util.js";
 import { userDBManager } from "../managers/user.manager.js";
-import { response } from "express";
 
 const UserService = new userDBManager();
 
@@ -80,6 +79,32 @@ passport.use(
         done(null, user);
       } catch (error) {
         console.error("Error en la estrategia de autenticación:", error);
+        return done(error);
+      }
+    }
+  )
+);
+
+passport.use(
+  "signout",
+  new JWTStrategy(
+    {
+      jwtFromRequest: ExtractJwt.fromExtractors([(req) => req?.cookies?.token]),
+      secretOrKey: process.env.JWT_SECRET,
+    },
+    async (data, done) => {
+      console.log(process.env.JWT_SECRET);
+      try {
+        console.log(data);
+        const user = await UserService.getUserByID(data.id);
+        if (!user) {
+          return done(null, false);
+        }
+        user.active = false;
+        user.token = null;
+        await UserService.updateUserByID(user._id, user);
+        return done(null, user);
+      } catch (error) {
         return done(error);
       }
     }
