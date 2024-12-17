@@ -3,7 +3,7 @@ import { Strategy as LocalStrategy } from "passport-local";
 import { Strategy as JWTStrategy, ExtractJwt } from "passport-jwt";
 import { hashPassword, comparePassword } from "../utils/hash.util.js";
 import { generateToken, verifyToken } from "../utils/token.util.js";
-import { userDBManager } from "../managers/user.manager.js";
+import { userDBManager } from "../dao/mongo/managers/user.manager.js";
 
 const UserService = new userDBManager();
 

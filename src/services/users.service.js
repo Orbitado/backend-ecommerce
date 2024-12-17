@@ -1,4 +1,4 @@
-import { userDBManager } from "../managers/user.manager.js";
+import { userDBManager } from "../dao/mongo/managers/user.manager.js";
 
 const UserService = new userDBManager();
 

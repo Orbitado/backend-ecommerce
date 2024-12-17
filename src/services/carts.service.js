@@ -1,5 +1,5 @@
-import { cartDBManager } from "../managers/cart.manager.js";
-import { productDBManager } from "../managers/product.manager.js";
+import { cartDBManager } from "../dao/mongo/managers/cart.manager.js";
+import { productDBManager } from "../dao/mongo/managers/product.manager.js";
 
 const ProductService = new productDBManager();
 const CartService = new cartDBManager(ProductService);
