@@ -1,6 +1,4 @@
-import { productDBManager } from "../managers/product.manager.js";
-
-const ProductService = new productDBManager();
+import ProductService from "../services/products.service.js";
 
 export const renderHomePage = async (req, res) => {
   try {
