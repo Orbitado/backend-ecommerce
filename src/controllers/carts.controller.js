@@ -1,8 +1,4 @@
-import { cartDBManager } from "../managers/cart.manager.js";
-import { productDBManager } from "../managers/product.manager.js";
-
-const ProductService = new productDBManager();
-const CartService = new cartDBManager(ProductService);
+import CartService from "../services/carts.service.js";
 
 export const getProductsFromCartByID = async (req, res) => {
   try {

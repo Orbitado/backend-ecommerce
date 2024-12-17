@@ -1,6 +1,4 @@
-import { userDBManager } from "../managers/user.manager.js";
-
-const UserService = new userDBManager();
+import UserService from "../services/users.service.js";
 
 export const getAllUsers = async (req, res) => {
   try {

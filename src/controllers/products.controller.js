@@ -1,7 +1,5 @@
-import { productDBManager } from "../managers/product.manager.js";
+import ProductService from "../services/products.service.js";
 import { uploader } from "../utils/multer.js";
-
-const ProductService = new productDBManager();
 
 export const getAllProducts = async (req, res) => {
   try {
