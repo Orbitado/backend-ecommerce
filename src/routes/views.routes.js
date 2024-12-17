@@ -1,18 +1,12 @@
 import { Router } from "express";
-import { productDBManager } from "../managers/product.manager.js";
+import {
+  renderHomePage,
+  renderRealTimeProductsPage,
+} from "../controllers/views.controller.js";
 
 const router = Router();
 
-const ProductService = new productDBManager();
-
-router.get("/", async (req, res) => {
-  const products = await ProductService.getAllProducts();
-  res.render("home", { products });
-});
-
-router.get("/realTimeProducts", async (req, res) => {
-  const products = await ProductService.getAllProducts(req.query);
-  res.render("realTimeProducts", { products });
-});
+router.get("/", renderHomePage);
+router.get("/realTimeProducts", renderRealTimeProductsPage);
 
 export default router;

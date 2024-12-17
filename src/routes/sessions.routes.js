@@ -5,7 +5,7 @@ import {
   loginUser,
   signOutUser,
   getCurrentUser,
-} from "../controllers/auth.controller.js";
+} from "../controllers/sessions.controller.js";
 
 const router = express.Router();
 
