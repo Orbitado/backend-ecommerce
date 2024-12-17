@@ -1,8 +1,3 @@
-import { userDBManager } from "../managers/user.manager.js";
-import { passportCb } from "../middlewares/cb-passport.mid.js";
-
-const UserService = new userDBManager();
-
 export const registerUser = async (req, res) => {
   try {
     const user = req.user;
