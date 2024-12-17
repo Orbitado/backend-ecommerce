@@ -1,18 +1,25 @@
 import dotenv from "dotenv";
+import { connectDb } from "../utils/mongoose.js";
 
 dotenv.config();
 
-const persistence = process.env.PERSISTENCE || "mongodb"; // Valor por defecto: mongodb
+const persistence = process.env.PERSISTENCE || "mongodb";
+
+if (!persistence) {
+  throw new Error("PERSISTENCE is not defined");
+}
 
 export const getProductDAO = async () => {
   switch (persistence) {
     case "mongodb": {
+      connectDb();
       const { productDBManager } = await import(
         "./mongo/managers/product.manager.js"
       );
       return new productDBManager();
     }
     case "filesystem": {
+      console.log("Connected to filesystem");
       const { productFSManager } = await import(
         "./filesystem/product.manager.js"
       );
@@ -26,6 +33,7 @@ export const getProductDAO = async () => {
 export const getUserDAO = async () => {
   switch (persistence) {
     case "mongodb": {
+      connectDb();
       const { userDBManager } = await import(
         "./mongo/managers/user.manager.js"
       );
@@ -43,6 +51,7 @@ export const getUserDAO = async () => {
 export const getCartDAO = async () => {
   switch (persistence) {
     case "mongodb": {
+      connectDb();
       const { CartDBManager } = await import(
         "./mongo/managers/cart.manager.js"
       );
