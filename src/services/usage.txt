@@ -1,0 +1,1 @@
+// ⁠Services: Maneja la interacción de los datos. “Llamar a la persistencia y entregárselo al controlador”. Encapsulan la lógica necesaria para procesar los datos de la aplicación, separando la lógica de negocio.

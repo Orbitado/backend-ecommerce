@@ -1,0 +1,1 @@
+- Controller: Una capa intermedia entre las rutas y la lógica de negocio. Su función principal es manejar la lógica de las peticiones HTTP entrantes y determinar cómo responden.
