@@ -11,23 +11,20 @@ class ProductService {
   }
 
   async getAllProducts() {
-    const products = await this.ProductDAO.getAllProducts();
-    return products.map((product) => new ProductDTO(product));
+    return await this.ProductDAO.getAllProducts();
   }
 
   async getProductByID(pid) {
-    const product = await this.ProductDAO.getProductByID(pid);
-    return new ProductDTO(product);
+    return await this.ProductDAO.getProductByID(pid);
   }
 
   async createProduct(product) {
-    const newProduct = new ProductDTO(product);
-    return await this.ProductDAO.createProduct(newProduct);
+    product = new ProductDTO(product);
+    return await this.ProductDAO.createProduct(product);
   }
 
   async updateProduct(pid, productUpdate) {
-    const updatedProduct = new ProductDTO({ ...productUpdate, _id: pid });
-    return await this.ProductDAO.updateProduct(pid, updatedProduct);
+    return await this.ProductDAO.updateProduct(pid, productUpdate);
   }
 
   async deleteProduct(pid) {
