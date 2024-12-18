@@ -3,9 +3,7 @@ import { Strategy as LocalStrategy } from "passport-local";
 import { Strategy as JWTStrategy, ExtractJwt } from "passport-jwt";
 import { hashPassword, comparePassword } from "../utils/hash.util.js";
 import { generateToken, verifyToken } from "../utils/token.util.js";
-import { userDBManager } from "../managers/user.manager.js";
-
-const UserService = new userDBManager();
+import userService from "../services/users.service.js";
 
 passport.use(
   "register",
@@ -17,7 +15,7 @@ passport.use(
     },
     async (req, email, password, done) => {
       try {
-        const existingUser = await UserService.getUserByEmail(email);
+        const existingUser = await userService.getUserByEmail(email);
         if (existingUser) {
           return done(null, false, {
             message: `El usuario con el email ${email} ya existe.`,
@@ -25,7 +23,7 @@ passport.use(
         }
 
         const hashedPassword = hashPassword(password);
-        const newUser = await UserService.createUser({
+        const newUser = await userService.createUser({
           ...req.body,
           password: hashedPassword,
         });
@@ -49,7 +47,7 @@ passport.use(
       console.log("Intento de inicio de sesión con email:", email);
       console.log("Intento de inicio de sesión con password:", password);
       try {
-        const user = await UserService.getUserByEmail(email);
+        const user = await userService.getUserByEmail(email);
         if (!user) {
           const info = {
             message: `Usuario con el email ${email} no encontrado.`,
@@ -73,7 +71,7 @@ passport.use(
         const token = generateToken(userData);
         user.token = token;
         user.active = true;
-        await UserService.updateUserByID(user._id, user);
+        await userService.updateUserByID(user._id, user);
         console.log("Token generado:", token);
         console.log("Usuario autenticado:", user);
         done(null, user);
@@ -96,13 +94,13 @@ passport.use(
       console.log(process.env.JWT_SECRET);
       try {
         console.log(data);
-        const user = await UserService.getUserByID(data.id);
+        const user = await userService.getUserByID(data.id);
         if (!user) {
           return done(null, false);
         }
         user.active = false;
         user.token = null;
-        await UserService.updateUserByID(user._id, user);
+        await userService.updateUserByID(user._id, user);
         return done(null, user);
       } catch (error) {
         return done(error);
@@ -120,7 +118,7 @@ passport.use(
     },
     async (data, done) => {
       try {
-        const user = await UserService.getUserByID(data.id);
+        const user = await userService.getUserByID(data.id);
         const { active } = user;
         if (!active) {
           const info = {

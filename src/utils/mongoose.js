@@ -14,7 +14,7 @@ export function connectDb() {
     .connect(MONGO_LINK)
     .then(() => {
       try {
-        console.log(`MongoDb connected`);
+        console.log(`Connected to MongoDB`);
       } catch (error) {
         console.log(error);
       }

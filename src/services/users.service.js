@@ -1,20 +1,39 @@
-import { userDBManager } from "../managers/user.manager.js";
+import { getUserDAO } from "../dao/index.factory.js";
 
-const UserService = new userDBManager();
+class UserService {
+  constructor() {
+    this.UserDAO = null;
+  }
 
-export const getAllUsers = async () => await UserService.getAllUsers();
+  async init() {
+    this.UserDAO = await getUserDAO();
+  }
 
-export const getUserByID = async (uid) => await UserService.getUserByID(uid);
+  async getAllUsers() {
+    return await this.UserDAO.getAllUsers();
+  }
 
-export const getUserByEmail = async (email) =>
-  await UserService.getUserByEmail(email);
+  async getUserByID(uid) {
+    return await this.UserDAO.getUserByID(uid);
+  }
 
-export const createUser = async (userData) =>
-  await UserService.createUser(userData);
+  async getUserByEmail(email) {
+    return await this.UserDAO.getUserByEmail(email);
+  }
 
-export const updateUserByID = async (uid, userUpdate) =>
-  await UserService.updateUserByID(uid, userUpdate);
+  async createUser(user) {
+    return await this.UserDAO.createUser(user);
+  }
 
-export const deleteUser = async (uid) => await UserService.deleteUser(uid);
+  async updateUserByID(uid, userUpdate) {
+    return await this.UserDAO.updateUserByID(uid, userUpdate);
+  }
 
-export default UserService;
+  async deleteUser(uid) {
+    return await this.UserDAO.deleteUser(uid);
+  }
+}
+
+const userService = new UserService();
+await userService.init();
+export default userService;

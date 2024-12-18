@@ -1,16 +1,35 @@
-import { productDBManager } from "../managers/product.manager.js";
+import { getProductDAO } from "../dao/index.factory.js";
 
-const ProductService = new productDBManager();
+class ProductService {
+  constructor() {
+    this.ProductDAO = null;
+  }
 
-export const createProduct = (product) => ProductService.createProduct(product);
+  async init() {
+    this.ProductDAO = await getProductDAO();
+  }
 
-export const updateProduct = (pid, productUpdate) =>
-  ProductService.updateProduct(pid, productUpdate);
+  async getAllProducts() {
+    return await this.ProductDAO.getAllProducts();
+  }
 
-export const deleteProduct = (pid) => ProductService.deleteProduct(pid);
+  async getProductByID(pid) {
+    return await this.ProductDAO.getProductByID(pid);
+  }
 
-export const getAllProducts = () => ProductService.getAllProducts();
+  async createProduct(product) {
+    return await this.ProductDAO.createProduct(product);
+  }
 
-export const getProductByID = (pid) => ProductService.getProductByID(pid);
+  async updateProduct(pid, productUpdate) {
+    return await this.ProductDAO.updateProduct(pid, productUpdate);
+  }
 
-export default ProductService;
+  async deleteProduct(pid) {
+    return await this.ProductDAO.deleteProduct(pid);
+  }
+}
+
+const productService = new ProductService();
+await productService.init();
+export default productService;

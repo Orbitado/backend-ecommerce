@@ -9,7 +9,21 @@ class productDBManager {
   async getProductByID(pid) {
     const product = await productModel.findOne({ _id: pid });
 
-    if (!product) throw new Error(`El producto ${pid} no existe!`);
+    if (product === null) {
+      throw new Error(`El producto ${pid} no existe!`);
+    }
+
+    if (typeof product === "undefined") {
+      throw new Error(
+        "Error al obtener el producto por ID. Verificar que el ID sea correcto."
+      );
+    }
+
+    if (product === undefined) {
+      throw new Error(
+        "Error al obtener el producto por ID. Verificar que el ID sea correcto."
+      );
+    }
 
     return product;
   }
