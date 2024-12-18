@@ -7,10 +7,11 @@ import {
   updateAllProducts,
   updateProductByID,
   deleteAllProducts,
+  getAllCarts,
 } from "../controllers/carts.controller.js";
-
 const router = Router();
 
+router.get("/", getAllCarts);
 router.get("/:cid", getProductsFromCartByID);
 router.post("/", createCart);
 router.post("/:cid/product/:pid", addProductByID);
