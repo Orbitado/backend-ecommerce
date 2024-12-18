@@ -40,8 +40,8 @@ export const getUserDAO = async () => {
       return new userDBManager();
     }
     case "filesystem": {
-      const { userFSManager } = await import("./filesystem/user.manager.js");
-      return new userFSManager();
+      const { UserFSManager } = await import("./filesystem/user.manager.js");
+      return new UserFSManager();
     }
     default:
       throw new Error(`Tipo de persistencia '${persistence}' no soportado.`);
