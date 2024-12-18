@@ -1,8 +1,9 @@
 import { cartModel } from "../models/carts.model.js";
+import { productDBManager } from "./product.manager.js";
 
 class cartDBManager {
-  constructor(productDBManager) {
-    this.productDBManager = productDBManager;
+  constructor() {
+    this.productDBManager = new productDBManager();
   }
 
   async getAllCarts() {

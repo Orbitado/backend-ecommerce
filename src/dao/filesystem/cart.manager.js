@@ -1,6 +1,5 @@
 import fs from "fs/promises";
 import path from "path";
-
 import { productFSManager } from "./product.manager.js";
 
 class CartFSManager {
