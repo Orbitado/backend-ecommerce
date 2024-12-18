@@ -1,5 +1,7 @@
 import fs from "fs/promises";
 import path from "path";
+import bcrypt from "bcrypt";
+import crypto from "crypto";
 
 class UserFSManager {
   constructor() {
@@ -76,10 +78,19 @@ class UserFSManager {
         throw new Error("Faltan datos requeridos.");
       }
 
+      const existingUser = await this.getUserByEmail(userData.email);
+      if (existingUser) {
+        throw new Error("El correo electrónico ya está registrado.");
+      }
+
       const users = await this._readFile();
+      const hashedPassword = await bcrypt.hash(userData.password, 10);
       const newUser = {
-        _id: Date.now().toString(), // Generar un ID único
+        _id: crypto.randomBytes(12).toString("hex"),
         ...userData,
+        password: hashedPassword,
+        createdAt: new Date(),
+        updatedAt: new Date(),
       };
 
       users.push(newUser);

@@ -9,7 +9,7 @@ if (!persistence) {
   throw new Error("PERSISTENCE is not defined");
 }
 
-class userDTO {
+class UserDTO {
   constructor({
     _id,
     first_name,
@@ -41,4 +41,4 @@ class userDTO {
   }
 }
 
-export default userDTO;
+export default UserDTO;

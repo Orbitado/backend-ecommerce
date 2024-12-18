@@ -1,4 +1,5 @@
 import { getUserDAO } from "../dao/index.factory.js";
+import UserDTO from "../dto/user.dto.js";
 
 class UserService {
   constructor() {
@@ -22,7 +23,7 @@ class UserService {
   }
 
   async createUser(user) {
-    return await this.UserDAO.createUser(user);
+    return await this.UserDAO.createUser(new UserDTO(user));
   }
 
   async updateUserByID(uid, userUpdate) {

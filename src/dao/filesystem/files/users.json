@@ -1,36 +1,15 @@
 [
   {
-    "_id": "1734480316345",
+    "_id": "0511dc72a836d63a4374627f",
     "first_name": "Juan",
     "last_name": "Pérez",
-    "age": 30,
-    "email": "j@example.com",
-    "password": "$2b$10$m2y4U4.6yZYOsEvNYFpbSuTJtXu8GmAbphRwZAXHDo4dUyokmG6vS"
-  },
-  {
-    "_id": "1734480391539",
-    "first_name": "Juan",
-    "last_name": "Pérez",
-    "age": 30,
-    "email": "jasd@example.com",
-    "password": "$2b$10$6E/4KklMQNkYnAVuHn4XH.aMCMtY4idH7AvQjMD1f61ggHkyFJJ5y"
-  },
-  {
-    "_id": "1734481022149",
-    "first_name": "Juan",
-    "last_name": "Pérez",
-    "age": 30,
-    "email": "jafdfg@example.com",
-    "password": "$2b$10$BmaT5ZYk24KMgvAY4KYIR.KwSV5INijxcL.8GBoPxLLSkyl2W6/Ai"
-  },
-  {
-    "_id": "1734481174921",
-    "first_name": "Juan",
-    "last_name": "Pérez",
-    "age": 30,
-    "email": "jafdfggh@example.com",
-    "password": "$2b$10$Xz8nZPaK9M96PGvbPkQuR.xxng8pBKSR5b0Dvllk47bcfkj7eSuFO",
-    "token": null,
-    "active": false
+    "email": "juan@example.com",
+    "age": 20,
+    "password": "$2b$10$OAUi/q6lDH7gOix3kT/J9.PaeETcnuPKAygNZ4x/Fy4R6BTNBhTf6",
+    "cart": "648a79c5d5f1a5e8e4b6a1d2",
+    "role": "USER",
+    "active": false,
+    "createdAt": "2024-12-18T18:53:47.765Z",
+    "updatedAt": "2024-12-18T18:53:47.765Z"
   }
 ]
