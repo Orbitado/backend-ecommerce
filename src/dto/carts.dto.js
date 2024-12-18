@@ -15,6 +15,8 @@ class CartDTO {
       products._id ||
       (persistence !== "mongodb" && crypto.randomBytes(12).toString("hex"));
     this.products = products;
+    persistence !== "mongodb" && (this.createdAt = new Date());
+    persistence !== "mongodb" && (this.updatedAt = new Date());
   }
 }
 

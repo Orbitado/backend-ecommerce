@@ -54,6 +54,8 @@ class CartFSManager {
     const newCart = {
       _id: crypto.randomBytes(12).toString("hex"),
       products: [],
+      createdAt: new Date(),
+      updatedAt: new Date(),
     };
 
     carts.push(newCart);

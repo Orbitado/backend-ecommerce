@@ -1,15 +1,8 @@
 [
   {
-    "_id": "570276ff1e39ca854279dca0",
-    "products": [
-      {
-        "product": "c5b81ab9ea003c9b7d9e2e3e",
-        "quantity": 1
-      }
-    ]
-  },
-  {
-    "_id": "f881f9cd80edb322ee521fd7",
-    "products": []
+    "_id": "c190849855641c45b2d88df8",
+    "products": [],
+    "createdAt": "2024-12-18T18:45:04.736Z",
+    "updatedAt": "2024-12-18T18:45:04.736Z"
   }
 ]
