@@ -1,10 +1,12 @@
 import fs from "fs/promises";
 import path from "path";
 
+import { productFSManager } from "./product.manager.js";
+
 class CartFSManager {
-  constructor(productFSManager) {
-    this.productFSManager = productFSManager;
-    this.filePath = path.resolve("data/carts.json"); // Ruta del archivo JSON para carritos
+  constructor() {
+    this.productFSManager = new productFSManager();
+    this.filePath = path.resolve("./src/dao/filesystem/files/carts.json");
   }
 
   // Leer archivo JSON
@@ -38,7 +40,7 @@ class CartFSManager {
 
   async getProductsFromCartByID(cid) {
     const carts = await this._readFile();
-    const cart = carts.find((c) => c.id === cid);
+    const cart = carts.find((c) => c._id === cid);
 
     if (!cart) {
       throw new Error(`El carrito ${cid} no existe!`);
@@ -49,7 +51,7 @@ class CartFSManager {
 
   async createCart() {
     const carts = await this._readFile();
-    const newCart = { id: Date.now().toString(), products: [] };
+    const newCart = { _id: Date.now().toString(), products: [] };
 
     carts.push(newCart);
     await this._writeFile(carts);
@@ -61,7 +63,7 @@ class CartFSManager {
     await this.productFSManager.getProductByID(pid);
 
     const carts = await this._readFile();
-    const cart = carts.find((c) => c.id === cid);
+    const cart = carts.find((c) => c._id === cid);
 
     if (!cart) {
       throw new Error(`El carrito ${cid} no existe!`);
@@ -87,7 +89,7 @@ class CartFSManager {
     await this.productFSManager.getProductByID(pid);
 
     const carts = await this._readFile();
-    const cart = carts.find((c) => c.id === cid);
+    const cart = carts.find((c) => c._id === cid);
 
     if (!cart) {
       throw new Error(`El carrito ${cid} no existe!`);
@@ -107,7 +109,7 @@ class CartFSManager {
     }
 
     const carts = await this._readFile();
-    const cart = carts.find((c) => c.id === cid);
+    const cart = carts.find((c) => c._id === cid);
 
     if (!cart) {
       throw new Error(`El carrito ${cid} no existe!`);
@@ -126,7 +128,7 @@ class CartFSManager {
     await this.productFSManager.getProductByID(pid);
 
     const carts = await this._readFile();
-    const cart = carts.find((c) => c.id === cid);
+    const cart = carts.find((c) => c._id === cid);
 
     if (!cart) {
       throw new Error(`El carrito ${cid} no existe!`);
@@ -145,7 +147,7 @@ class CartFSManager {
 
   async deleteAllProducts(cid) {
     const carts = await this._readFile();
-    const cart = carts.find((c) => c.id === cid);
+    const cart = carts.find((c) => c._id === cid);
 
     if (!cart) {
       throw new Error(`El carrito ${cid} no existe!`);

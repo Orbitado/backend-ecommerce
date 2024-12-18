@@ -1,28 +1,47 @@
-import { cartDBManager } from "../dao/mongo/managers/cart.manager.js";
-import { productDBManager } from "../dao/mongo/managers/product.manager.js";
+import { getCartDAO } from "../dao/index.factory.js";
 
-const ProductService = new productDBManager();
-const CartService = new cartDBManager(ProductService);
+class CartService {
+  constructor() {
+    this.CartDAO = null;
+  }
 
-export const getAllCarts = () => CartService.getAllCarts();
+  async init() {
+    this.CartDAO = await getCartDAO();
+  }
 
-export const getProductsFromCartByID = (cid) =>
-  CartService.getProductsFromCartByID(cid);
+  async getAllCarts() {
+    return await this.CartDAO.getAllCarts();
+  }
 
-export const createCart = () => CartService.createCart();
+  async getProductsFromCartByID(cid) {
+    return await this.CartDAO.getProductsFromCartByID(cid);
+  }
 
-export const addProductByID = (cid, pid) =>
-  CartService.addProductByID(cid, pid);
+  async createCart() {
+    return await this.CartDAO.createCart();
+  }
 
-export const deleteProductByID = (cid, pid) =>
-  CartService.deleteProductByID(cid, pid);
+  async addProductByID(cid, pid) {
+    return await this.CartDAO.addProductByID(cid, pid);
+  }
 
-export const updateAllProducts = (cid, products) =>
-  CartService.updateAllProducts(cid, products);
+  async deleteProductByID(cid, pid) {
+    return await this.CartDAO.deleteProductByID(cid, pid);
+  }
 
-export const updateProductByID = (cid, pid, quantity) =>
-  CartService.updateProductByID(cid, pid, quantity);
+  async updateAllProducts(cid, products) {
+    return await this.CartDAO.updateAllProducts(cid, products);
+  }
 
-export const deleteAllProducts = (cid) => CartService.deleteAllProducts(cid);
+  async updateProductByID(cid, pid, quantity) {
+    return await this.CartDAO.updateProductByID(cid, pid, quantity);
+  }
 
-export default CartService;
+  async deleteAllProducts(cid) {
+    return await this.CartDAO.deleteAllProducts(cid);
+  }
+}
+
+const cartService = new CartService();
+await cartService.init();
+export default cartService;

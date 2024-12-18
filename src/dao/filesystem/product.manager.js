@@ -33,9 +33,11 @@ class productFSManager {
 
   async getProductByID(pid) {
     const products = await this._readFile();
-    const product = products.find((p) => p.id === pid);
+    const product = products.find((p) => p?._id === pid);
 
-    if (!product) throw new Error(`El producto con ID ${pid} no existe.`);
+    if (!product) {
+      throw new Error(`El producto con ID ${pid} no existe.`);
+    }
 
     return product;
   }
@@ -52,7 +54,7 @@ class productFSManager {
 
     const products = await this._readFile();
     const newProduct = {
-      id: Date.now().toString(),
+      _id: Date.now().toString(),
       title,
       description,
       code,
@@ -70,7 +72,7 @@ class productFSManager {
 
   async updateProduct(pid, productUpdate) {
     const products = await this._readFile();
-    const index = products.findIndex((p) => p.id === pid);
+    const index = products.findIndex((p) => p._id === pid);
 
     if (index === -1) throw new Error(`El producto con ID ${pid} no existe.`);
 
@@ -82,7 +84,7 @@ class productFSManager {
 
   async deleteProduct(pid) {
     const products = await this._readFile();
-    const index = products.findIndex((p) => p.id === pid);
+    const index = products.findIndex((p) => p._id === pid);
 
     if (index === -1) throw new Error(`El producto con ID ${pid} no existe.`);
 

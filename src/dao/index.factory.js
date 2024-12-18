@@ -33,7 +33,6 @@ export const getProductDAO = async () => {
 export const getUserDAO = async () => {
   switch (persistence) {
     case "mongodb": {
-      connectDb();
       const { userDBManager } = await import(
         "./mongo/managers/user.manager.js"
       );
@@ -51,11 +50,10 @@ export const getUserDAO = async () => {
 export const getCartDAO = async () => {
   switch (persistence) {
     case "mongodb": {
-      connectDb();
-      const { CartDBManager } = await import(
+      const { cartDBManager } = await import(
         "./mongo/managers/cart.manager.js"
       );
-      return new CartDBManager();
+      return new cartDBManager();
     }
     case "filesystem": {
       const { CartFSManager } = await import("./filesystem/cart.manager.js");
