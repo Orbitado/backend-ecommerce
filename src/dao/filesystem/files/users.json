@@ -1,0 +1,36 @@
+[
+  {
+    "_id": "1734480316345",
+    "first_name": "Juan",
+    "last_name": "Pérez",
+    "age": 30,
+    "email": "j@example.com",
+    "password": "$2b$10$m2y4U4.6yZYOsEvNYFpbSuTJtXu8GmAbphRwZAXHDo4dUyokmG6vS"
+  },
+  {
+    "_id": "1734480391539",
+    "first_name": "Juan",
+    "last_name": "Pérez",
+    "age": 30,
+    "email": "jasd@example.com",
+    "password": "$2b$10$6E/4KklMQNkYnAVuHn4XH.aMCMtY4idH7AvQjMD1f61ggHkyFJJ5y"
+  },
+  {
+    "_id": "1734481022149",
+    "first_name": "Juan",
+    "last_name": "Pérez",
+    "age": 30,
+    "email": "jafdfg@example.com",
+    "password": "$2b$10$BmaT5ZYk24KMgvAY4KYIR.KwSV5INijxcL.8GBoPxLLSkyl2W6/Ai"
+  },
+  {
+    "_id": "1734481174921",
+    "first_name": "Juan",
+    "last_name": "Pérez",
+    "age": 30,
+    "email": "jafdfggh@example.com",
+    "password": "$2b$10$Xz8nZPaK9M96PGvbPkQuR.xxng8pBKSR5b0Dvllk47bcfkj7eSuFO",
+    "token": null,
+    "active": false
+  }
+]

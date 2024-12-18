@@ -1,5 +1,20 @@
 import CartService from "../services/carts.service.js";
 
+export const getAllCarts = async (req, res) => {
+  try {
+    const result = await CartService.getAllCarts();
+    res.send({
+      status: "success",
+      payload: result,
+    });
+  } catch (error) {
+    res.status(400).send({
+      status: "error",
+      message: error.message,
+    });
+  }
+};
+
 export const getProductsFromCartByID = async (req, res) => {
   try {
     const result = await CartService.getProductsFromCartByID(req.params.cid);

@@ -1,0 +1,12 @@
+[
+  {
+    "_id": "1734482453904",
+    "title": "Product 2",
+    "description": "A simple product two",
+    "code": "A2",
+    "price": 200,
+    "stock": 10,
+    "category": "category Products",
+    "thumbnails": []
+  }
+]

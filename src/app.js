@@ -7,7 +7,6 @@ import viewsRoutes from "./routes/views.routes.js";
 import __dirname from "./dirname.js";
 import path from "path";
 import { Server } from "socket.io";
-import { connectDb } from "./utils/mongoose.js";
 import passport from "passport";
 import session from "express-session";
 import dotenv from "dotenv";
@@ -18,7 +17,6 @@ import cookieParser from "cookie-parser";
 dotenv.config();
 
 // mongodb connection
-connectDb();
 
 const app = Express();
 const PORT = 8080;
