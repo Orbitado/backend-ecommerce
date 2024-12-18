@@ -32,6 +32,14 @@ const productSchema = mongoose.Schema({
     type: [String],
     require: true,
   },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
+  updatedAt: {
+    type: Date,
+    default: Date.now,
+  },
 });
 
 productSchema.plugin(mongoosePaginate);

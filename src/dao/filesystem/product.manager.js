@@ -43,8 +43,18 @@ class productFSManager {
   }
 
   async createProduct(product) {
-    const { title, description, code, price, stock, category, thumbnails } =
-      product;
+    const {
+      _id,
+      title,
+      description,
+      code,
+      price,
+      stock,
+      category,
+      thumbnails,
+      createdAt,
+      updatedAt,
+    } = product;
 
     if (!title || !description || !code || !price || !stock || !category) {
       throw new Error(
@@ -54,7 +64,7 @@ class productFSManager {
 
     const products = await this._readFile();
     const newProduct = {
-      _id: Date.now().toString(),
+      _id,
       title,
       description,
       code,
@@ -62,6 +72,8 @@ class productFSManager {
       stock,
       category,
       thumbnails: thumbnails || [],
+      createdAt,
+      updatedAt,
     };
 
     products.push(newProduct);

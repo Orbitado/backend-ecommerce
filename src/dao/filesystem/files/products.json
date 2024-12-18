@@ -8,5 +8,76 @@
     "stock": 10,
     "category": "category Products",
     "thumbnails": []
+  },
+  {
+    "_id": "1734544784056",
+    "title": "Product 2",
+    "description": "A simple product two",
+    "code": "A2",
+    "price": 200,
+    "stock": 10,
+    "category": "category Products",
+    "thumbnails": []
+  },
+  {
+    "title": "Product 2",
+    "description": "A simple product two",
+    "code": "A2",
+    "price": 200,
+    "stock": 10,
+    "category": "category Products",
+    "thumbnails": []
+  },
+  {
+    "title": "Product 2",
+    "description": "A simple product two",
+    "code": "A2",
+    "price": 200,
+    "stock": 10,
+    "category": "category Products",
+    "thumbnails": []
+  },
+  {
+    "title": "Product 2",
+    "description": "A simple product two",
+    "code": "A2",
+    "price": 200,
+    "stock": 10,
+    "category": "category Products",
+    "thumbnails": []
+  },
+  {
+    "_id": "30214d263cc22774e8fa02c1e1a1ebce",
+    "title": "Product 2",
+    "description": "A simple product two",
+    "code": "A2",
+    "price": 200,
+    "stock": 10,
+    "category": "category Products",
+    "thumbnails": []
+  },
+  {
+    "_id": "1c06c632a7d432f53ae62fe9550c76bc",
+    "title": "Product 2",
+    "description": "A simple product two",
+    "code": "A2",
+    "price": 200,
+    "stock": 10,
+    "category": "category Products",
+    "thumbnails": [],
+    "createdAt": "2024-12-18T18:04:44.463Z",
+    "updatedAt": "2024-12-18T18:04:44.463Z"
+  },
+  {
+    "_id": "c5b81ab9ea003c9b7d9e2e3e",
+    "title": "Product 2",
+    "description": "A simple product two",
+    "code": "A2",
+    "price": 200,
+    "stock": 10,
+    "category": "category Products",
+    "thumbnails": [],
+    "createdAt": "2024-12-18T18:06:43.663Z",
+    "updatedAt": "2024-12-18T18:06:43.663Z"
   }
 ]
