@@ -41,7 +41,7 @@ class UserFSManager {
   async getUserByID(uid) {
     try {
       const users = await this._readFile();
-      const user = users.find((u) => u.id === uid);
+      const user = users.find((u) => u._id === uid);
 
       if (!user) {
         throw new Error(`Usuario con ID ${uid} no encontrado`);
@@ -78,7 +78,7 @@ class UserFSManager {
 
       const users = await this._readFile();
       const newUser = {
-        id: Date.now().toString(), // Generar un ID único
+        _id: Date.now().toString(), // Generar un ID único
         ...userData,
       };
 
@@ -99,11 +99,7 @@ class UserFSManager {
 
     try {
       const users = await this._readFile();
-      const index = users.findIndex((u) => u.id === uid);
-
-      if (index === -1) {
-        throw new Error(`Usuario con ID ${uid} no encontrado`);
-      }
+      const index = users.findIndex((u) => u._id === uid);
 
       users[index] = { ...users[index], ...userUpdate };
       await this._writeFile(users);
@@ -122,11 +118,7 @@ class UserFSManager {
 
     try {
       const users = await this._readFile();
-      const index = users.findIndex((u) => u.id === uid);
-
-      if (index === -1) {
-        throw new Error(`Usuario con ID ${uid} no encontrado`);
-      }
+      const index = users.findIndex((u) => u._id === uid);
 
       const deletedUser = users.splice(index, 1);
       await this._writeFile(users);
