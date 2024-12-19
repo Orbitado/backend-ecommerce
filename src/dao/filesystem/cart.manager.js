@@ -1,5 +1,6 @@
 import fs from "fs/promises";
 import path from "path";
+import crypto from "crypto";
 import { productFSManager } from "./product.manager.js";
 
 class CartFSManager {
@@ -50,7 +51,12 @@ class CartFSManager {
 
   async createCart() {
     const carts = await this._readFile();
-    const newCart = { _id: Date.now().toString(), products: [] };
+    const newCart = {
+      _id: crypto.randomBytes(12).toString("hex"),
+      products: [],
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    };
 
     carts.push(newCart);
     await this._writeFile(carts);

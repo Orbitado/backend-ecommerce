@@ -1,4 +1,5 @@
 import { getCartDAO } from "../dao/index.factory.js";
+import CartDTO from "../dto/carts.dto.js";
 
 class CartService {
   constructor() {
@@ -18,7 +19,8 @@ class CartService {
   }
 
   async createCart() {
-    return await this.CartDAO.createCart();
+    const cart = await this.CartDAO.createCart();
+    return new CartDTO(cart);
   }
 
   async addProductByID(cid, pid) {

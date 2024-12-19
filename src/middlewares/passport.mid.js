@@ -44,8 +44,6 @@ passport.use(
       passReqToCallback: true,
     },
     async (req, email, password, done) => {
-      console.log("Intento de inicio de sesión con email:", email);
-      console.log("Intento de inicio de sesión con password:", password);
       try {
         const user = await userService.getUserByEmail(email);
         if (!user) {
@@ -72,7 +70,6 @@ passport.use(
         user.token = token;
         user.active = true;
         await userService.updateUserByID(user._id, user);
-        console.log("Token generado:", token);
         console.log("Usuario autenticado:", user);
         done(null, user);
       } catch (error) {

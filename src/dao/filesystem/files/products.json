@@ -1,12 +1,26 @@
 [
   {
-    "_id": "1734482453904",
+    "_id": "c5b81ab9ea003c9b7d9e2e3e",
+    "title": "Product 4",
+    "description": "A simple product four",
+    "code": "A1",
+    "price": 10000,
+    "stock": 1,
+    "category": "category Products",
+    "thumbnails": [],
+    "createdAt": "2024-12-18T18:06:43.663Z",
+    "updatedAt": "2024-12-18T18:06:43.663Z"
+  },
+  {
+    "_id": "b271075990805bda05470487",
     "title": "Product 2",
     "description": "A simple product two",
     "code": "A2",
     "price": 200,
     "stock": 10,
     "category": "category Products",
-    "thumbnails": []
+    "thumbnails": [],
+    "createdAt": "2024-12-18T18:21:14.395Z",
+    "updatedAt": "2024-12-18T18:21:14.395Z"
   }
 ]

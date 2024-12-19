@@ -1,4 +1,5 @@
 import { getProductDAO } from "../dao/index.factory.js";
+import ProductDTO from "../dto/products.dto.js";
 
 class ProductService {
   constructor() {
@@ -18,6 +19,7 @@ class ProductService {
   }
 
   async createProduct(product) {
+    product = new ProductDTO(product);
     return await this.ProductDAO.createProduct(product);
   }
 
