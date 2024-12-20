@@ -41,6 +41,8 @@ Create a `.env` file in the root directory and define the following variables:
 MONGO_LINK=<your-mongodb-uri>
 JWT_SECRET=<your-secret-key>
 SESSION_SECRET_KEY=<your-session-passport-key>
+PERSISTENCE = <"mongodb" || "filesystem">
+PORT = <your-port>
 ```
 
 ### Start the development server
@@ -100,11 +102,11 @@ Once the server is running, use tools like Postman, Insomnia, or a frontend clie
 
 ```json
 {
-  "first_name": "Juan Pablo",
-  "last_name": "Valdez",
-  "email": "juan.valdez@example.com",
-  "password": "hashedAndSecretPassword",
-  "age": 19
+        "first_name": "Juan",
+        "last_name": "Pérez",
+        "age": 30,
+        "email": "juanv@example.com",
+        "password": "securePassword123"
 }
 ```
 
@@ -112,17 +114,20 @@ Once the server is running, use tools like Postman, Insomnia, or a frontend clie
 
 ```json
 {
-  "message": "Usuario registrado exitosamente.",
-  "user": {
-    "first_name": "Juan Pablo",
-    "last_name": "Valdez",
-    "email": "juan.valdez@example.com",
-    "age": 19,
-    "role": "USER",
-    "active": false,
-    "token": null,
-    "_id": "67506be6eb5a2ac9f397895b"
-  }
+    "message": "Usuario registrado exitosamente.",
+    "user": {
+        "first_name": "Juan",
+        "last_name": "Pérez",
+        "email": "juanv@example.com",
+        "age": 30,
+        "password": "$2b$10$3wQKDdrAIRcVxDtyaWbnJ.sIGA4Pjp7bjnXNtn3bDKycekukJWVc6",
+        "cart": null,
+        "role": "USER",
+        "active": false,
+        "token": null,
+        "_id": "6765ca0d53827b25888897d0",
+        "__v": 0
+    }
 }
 ```
 
@@ -131,6 +136,7 @@ Once the server is running, use tools like Postman, Insomnia, or a frontend clie
 ## Dependencies
 
 - **bcrypt:** Password hashing for security.
+- **crypto:** Generate random IDs for FileSystem _id.
 - **connect-mongo:** MongoDB session store for Express.
 - **cookie-parser:** Parse HTTP cookies.
 - **dotenv:** Environment variable management.
