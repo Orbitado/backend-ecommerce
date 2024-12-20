@@ -6,13 +6,30 @@ import {
   updateUserByID,
   deleteUser,
 } from "../controllers/users.controller.js";
+import { authorize } from "../middlewares/policies.mid.js";
+import { authenticateUser } from "../middlewares/auth-user.mid.js";
 
 const router = Router();
 
-router.get("/", getAllUsers);
-router.get("/:uid", getUserByID);
-router.post("/", createUser);
-router.put("/:pid", updateUserByID);
-router.delete("/:uid", deleteUser);
+router.get(
+  "/",
+  authenticateUser,
+  authorize(["PUBLIC", "USER", "ADMIN"]),
+  getAllUsers
+);
+router.get(
+  "/:uid",
+  authenticateUser,
+  authorize(["PUBLIC", "USER", "ADMIN"]),
+  getUserByID
+);
+router.post("/", authenticateUser, authorize(["ADMIN"]), createUser);
+router.put(
+  "/:pid",
+  authenticateUser,
+  authorize(["PUBLIC", "USER", "ADMIN"]),
+  updateUserByID
+);
+router.delete("/:uid", authenticateUser, authorize(["ADMIN"]), deleteUser);
 
 export default router;
