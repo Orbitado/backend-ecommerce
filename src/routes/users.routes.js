@@ -11,12 +11,7 @@ import { authenticateUser } from "../middlewares/auth-user.mid.js";
 
 const router = Router();
 
-router.get(
-  "/",
-  authenticateUser,
-  authorize(["PUBLIC", "USER", "ADMIN"]),
-  getAllUsers
-);
+router.get("/", authenticateUser, authorize(["ADMIN"]), getAllUsers);
 router.get(
   "/:uid",
   authenticateUser,
