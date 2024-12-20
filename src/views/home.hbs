@@ -1,12 +1,45 @@
 <div>
   <h1>Productos MongoDb</h1>
   <ul>
-    {{#each products}}
-      <li>
-        <h3>{{title}}</h3>
-        <p>Descripción: {{description}}</p>
-        <p>Precio: {{price}}</p>
-      </li>
-    {{/each}}
+    <form action="http://localhost:8080/api/sessions/register" method="POST">
+      <h2>Register</h2>
+      <label for="first_name">First Name:</label>
+      <input type="text" id="first_name" name="first_name" required />
+      <label for="last_name">Last Name:</label>
+      <input type="text" id="last_name" name="last_name" required />
+      <label for="age">Age:</label>
+      <input type="number" id="age" name="age" required />
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required />
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password" required />
+      <button type="submit">Register</button>
+    </form>
+
+    <form action="http://localhost:8080/api/sessions/login" method="POST">
+      <h2>Login</h2>
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required />
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password" required />
+      <button type="submit">Login</button>
+    </form>
+
+    <form action="http://localhost:8080/api/sessions/signout" method="POST">
+      <h2>Logout</h2>
+      <button type="submit">Logout</button>
+    </form>
+
+    <form action="http://localhost:8080/api/sessions/current" method="POST">
+      <h2>Current User</h2>
+      <button type="submit">Current</button>
+    </form>
+
+    {{#if user}}
+      <h2>User</h2>
+      <p>{{user.first_name}} {{user.last_name}}</p>
+      <p>{{user.age}}</p>
+      <p>{{user.email}}</p>
+    {{/if}}
   </ul>
 </div>

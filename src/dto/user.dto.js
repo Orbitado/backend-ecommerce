@@ -1,5 +1,6 @@
 import crypto from "crypto";
 import dotenv from "dotenv";
+import { hashPassword } from "../utils/hash.util.js";
 
 dotenv.config();
 
@@ -26,7 +27,9 @@ class UserDTO {
   }) {
     this._id =
       _id ||
-      (persistence !== "mongodb" && crypto.randomBytes(12).toString("hex"));
+      (persistence !== "mongodb"
+        ? crypto.randomBytes(12).toString("hex")
+        : undefined);
     this.first_name = first_name;
     this.last_name = last_name;
     this.email = email;

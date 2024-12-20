@@ -11,5 +11,31 @@
     "active": false,
     "createdAt": "2024-12-18T18:53:47.765Z",
     "updatedAt": "2024-12-18T18:53:47.765Z"
+  },
+  {
+    "_id": "355c540e27eba7f5cff0057f",
+    "first_name": "Juan",
+    "last_name": "Pérez",
+    "email": "j@example.com",
+    "age": 30,
+    "password": "$2b$10$jOr7ACS03.PHGsPDZmtEI.FYSvBwHXmTM.w8OuqKFIXY4qQTN59R6",
+    "cart": null,
+    "role": "USER",
+    "active": false,
+    "createdAt": "2024-12-20T19:19:24.851Z",
+    "updatedAt": "2024-12-20T19:19:24.851Z"
+  },
+  {
+    "_id": "9025e875e3176c3b9d4390fc",
+    "first_name": "Juan",
+    "last_name": "Pérez",
+    "email": "juanvas@example.com",
+    "age": "30",
+    "password": "$2b$10$wWzDaLevJNQdN6sp/2qtwu99IQiQBzRDv6ea3.D9pnDUaa/o0l4pm",
+    "cart": null,
+    "role": "USER",
+    "active": false,
+    "createdAt": "2024-12-20T19:19:48.592Z",
+    "updatedAt": "2024-12-20T19:19:48.592Z"
   }
 ]
