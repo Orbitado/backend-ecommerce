@@ -12,6 +12,8 @@ import session from "express-session";
 import dotenv from "dotenv";
 import sessionsRouter from "./routes/sessions.routes.js";
 import cookieParser from "cookie-parser";
+import errorHandler from "./middlewares/error-handler.mid.js";
+import handleNotFound from "./middlewares/path-handler.mid.js";
 
 // Variables de entorno
 dotenv.config();
@@ -19,7 +21,7 @@ dotenv.config();
 // mongodb connection
 
 const app = Express();
-const PORT = 8080;
+const PORT = process.env.PORT || 8080;
 app.use(Express.json());
 app.use(Express.urlencoded({ extended: true }));
 
@@ -81,3 +83,7 @@ app.use("/api/products", productsRoutes);
 app.use("/api/carts", cartRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/sessions", sessionsRouter);
+
+// Middleware de errores
+app.use(errorHandler);
+app.use(handleNotFound);
