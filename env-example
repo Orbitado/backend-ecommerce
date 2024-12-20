@@ -1,0 +1,5 @@
+MONGO_LINK=<your-mongodb-uri>
+JWT_SECRET=<your-secret-key>
+SESSION_SECRET_KEY=<your-session-passport-key>
+PERSISTENCE = <"mongodb" |OR| "filesystem">
+PORT = <your-port || 8080>
