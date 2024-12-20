@@ -1,3 +1,4 @@
+import { hashPassword } from "../../../utils/hash.util.js";
 import UserModel from "../models/user.model.js";
 
 class userDBManager {
@@ -45,7 +46,10 @@ class userDBManager {
         throw new Error("Faltan datos requeridos.");
       }
 
-      const user = new UserModel(userData);
+      const user = new UserModel({
+        ...userData,
+        password: hashPassword(userData.password),
+      });
       await user.save();
       return user;
     } catch (error) {
