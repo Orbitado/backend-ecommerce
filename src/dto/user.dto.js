@@ -1,6 +1,5 @@
 import crypto from "crypto";
 import dotenv from "dotenv";
-import { hashPassword } from "../utils/hash.util.js";
 
 dotenv.config();
 
@@ -20,6 +19,8 @@ class UserDTO {
     password,
     cart,
     role,
+    isVerified,
+    verifyToken,
     active,
     token,
     createdAt,
@@ -37,6 +38,8 @@ class UserDTO {
     this.password = password;
     this.cart = cart || null;
     this.role = role || "USER";
+    this.isVerified = isVerified || false;
+    this.verifyToken = verifyToken || crypto.randomBytes(6).toString("hex");
     this.active = active || false;
     this.token = token;
     persistence !== "mongodb" && (this.createdAt = createdAt || new Date());
