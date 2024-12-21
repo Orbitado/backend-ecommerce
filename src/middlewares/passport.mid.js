@@ -4,6 +4,8 @@ import { Strategy as JWTStrategy, ExtractJwt } from "passport-jwt";
 import { hashPassword, comparePassword } from "../utils/hash.util.js";
 import { generateToken, verifyToken } from "../utils/token.util.js";
 import userService from "../services/users.service.js";
+import { sendVerificationEmail } from "../utils/nodemailer.util.js";
+import crypto from "crypto";
 
 passport.use(
   "register",
@@ -23,10 +25,14 @@ passport.use(
         }
 
         const hashedPassword = hashPassword(password);
+        const verifyCode = crypto.randomBytes(6).toString("hex");
         const newUser = await userService.createUser({
           ...req.body,
           password: hashedPassword,
+          verifyCode,
         });
+        await sendVerificationEmail(newUser, verifyCode);
+
         return done(null, newUser);
       } catch (error) {
         return done(error);

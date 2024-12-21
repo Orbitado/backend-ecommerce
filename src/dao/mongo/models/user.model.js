@@ -11,7 +11,7 @@ const userSchema = new mongoose.Schema({
   cart: { type: mongoose.Schema.Types.ObjectId, ref: "Cart" },
   role: { type: String, default: "PUBLIC", enum: ["PUBLIC", "USER", "ADMIN"] },
   isVerified: { type: Boolean, default: false },
-  verifyToken: { type: String, default: null },
+  verifyCode: { type: String, default: null },
   active: { type: Boolean, default: false },
   token: { type: String, default: null },
 });

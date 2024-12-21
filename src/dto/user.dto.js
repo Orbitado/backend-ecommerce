@@ -1,4 +1,3 @@
-import crypto from "crypto";
 import dotenv from "dotenv";
 
 dotenv.config();
@@ -20,7 +19,7 @@ class UserDTO {
     cart,
     role,
     isVerified,
-    verifyToken,
+    verifyCode,
     active,
     token,
     createdAt,
@@ -39,7 +38,7 @@ class UserDTO {
     this.cart = cart || null;
     this.role = role || "USER";
     this.isVerified = isVerified || false;
-    this.verifyToken = verifyToken || crypto.randomBytes(6).toString("hex");
+    this.verifyCode = verifyCode;
     this.active = active || false;
     this.token = token;
     persistence !== "mongodb" && (this.createdAt = createdAt || new Date());
