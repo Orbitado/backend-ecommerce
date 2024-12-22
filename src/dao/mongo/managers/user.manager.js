@@ -1,3 +1,4 @@
+import { hashPassword } from "../../../utils/hash.util.js";
 import UserModel from "../models/user.model.js";
 
 class userDBManager {

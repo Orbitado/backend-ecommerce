@@ -3,3 +3,5 @@ JWT_SECRET=<your-secret-key>
 SESSION_SECRET_KEY=<your-session-passport-key>
 PERSISTENCE = <"mongodb" |OR| "filesystem">
 PORT = <your-port || 8080>
+USER_EMAIL=<your-email-user>
+USER_PASSWORD=<your-email-oneview-password>
