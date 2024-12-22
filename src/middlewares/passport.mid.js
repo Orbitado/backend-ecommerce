@@ -4,6 +4,8 @@ import { Strategy as JWTStrategy, ExtractJwt } from "passport-jwt";
 import { hashPassword, comparePassword } from "../utils/hash.util.js";
 import { generateToken, verifyToken } from "../utils/token.util.js";
 import userService from "../services/users.service.js";
+import { sendVerificationEmail } from "../utils/nodemailer.util.js";
+import crypto from "crypto";
 
 passport.use(
   "register",
@@ -23,10 +25,14 @@ passport.use(
         }
 
         const hashedPassword = hashPassword(password);
+        const verifyCode = crypto.randomBytes(6).toString("hex");
         const newUser = await userService.createUser({
           ...req.body,
           password: hashedPassword,
+          verifyCode,
         });
+        await sendVerificationEmail(newUser, verifyCode);
+
         return done(null, newUser);
       } catch (error) {
         return done(error);
@@ -57,6 +63,14 @@ passport.use(
         const isValidPassword = comparePassword(password, user.password);
         if (!isValidPassword) {
           const info = { message: "Contraseña incorrecta.", statusCode: 401 };
+          return done(null, false, info);
+        }
+
+        if (!user.isVerified) {
+          const info = {
+            message: `El usuario no ha sido verificado. Por favor, revise su bandeja de entrada de su correo electronico: ${user.email}`,
+            statusCode: 401,
+          };
           return done(null, false, info);
         }
 
@@ -124,6 +138,46 @@ passport.use(
           };
           return done(null, false, info);
         }
+        return done(null, user);
+      } catch (error) {
+        return done(error);
+      }
+    }
+  )
+);
+
+passport.use(
+  "verify",
+  new LocalStrategy(
+    {
+      usernameField: "email",
+      passwordField: "verifyCode",
+      passReqToCallback: true,
+    },
+    async (req, email, verifyCode, done) => {
+      try {
+        const user = await userService.getUserByEmail(email);
+        if (!user) {
+          return done(null, false, {
+            message: `El usuario con el email ${email} no existe.`,
+          });
+        }
+
+        if (user.isVerified) {
+          return done(null, false, {
+            message: `El usuario con el email ${email} ya ha sido verificado.`,
+          });
+        }
+
+        if (user.verifyCode !== verifyCode) {
+          return done(null, false, {
+            message: `El código de verificación es incorrecto.`,
+          });
+        }
+
+        user.isVerified = true;
+        await userService.updateUserByID(user._id, user);
+
         return done(null, user);
       } catch (error) {
         return done(error);
