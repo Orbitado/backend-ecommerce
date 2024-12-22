@@ -1,6 +1,5 @@
 import fs from "fs/promises";
 import path from "path";
-import bcrypt from "bcrypt";
 import crypto from "crypto";
 
 class UserFSManager {
@@ -84,11 +83,9 @@ class UserFSManager {
       }
 
       const users = await this._readFile();
-      const hashedPassword = await bcrypt.hash(userData.password, 10);
       const newUser = {
         _id: crypto.randomBytes(12).toString("hex"),
         ...userData,
-        password: hashedPassword,
         createdAt: new Date(),
         updatedAt: new Date(),
       };

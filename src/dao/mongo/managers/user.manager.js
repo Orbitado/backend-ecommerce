@@ -48,7 +48,6 @@ class userDBManager {
 
       const user = new UserModel({
         ...userData,
-        password: hashPassword(userData.password),
       });
       await user.save();
       return user;
