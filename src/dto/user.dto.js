@@ -1,5 +1,5 @@
 import dotenv from "dotenv";
-import { hashPassword } from "../utils/hash.util.js";
+import crypto from "crypto";
 
 dotenv.config();
 
