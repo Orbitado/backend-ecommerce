@@ -71,3 +71,22 @@ export const getCurrentUser = async (req, res) => {
     });
   }
 };
+
+export const verifyUser = async (req, res) => {
+  try {
+    const user = req.user;
+
+    if (!user) {
+      return res
+        .status(400)
+        .json({ message: "No se pudo verificar el usuario." });
+    }
+
+    res.status(200).json({ message: "Usuario verificado exitosamente.", user });
+  } catch (error) {
+    res.status(500).json({
+      message: "Error interno al verificar el usuario.",
+      error: error.message,
+    });
+  }
+};

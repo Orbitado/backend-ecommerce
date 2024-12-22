@@ -8,8 +8,6 @@ export function generateVerificationCode() {
 }
 
 export async function sendVerificationEmail(user, code) {
-  console.log("USER_EMAIL:", process.env.USER_EMAIL);
-  console.log("USER_PASS:", process.env.USER_PASSWORD);
   const transporter = createTransport({
     host: "smtp.gmail.com",
     port: 465,

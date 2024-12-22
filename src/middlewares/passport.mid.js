@@ -66,6 +66,14 @@ passport.use(
           return done(null, false, info);
         }
 
+        if (!user.isVerified) {
+          const info = {
+            message: `El usuario no ha sido verificado. Por favor, revise su bandeja de entrada de su correo electronico: ${user.email}`,
+            statusCode: 401,
+          };
+          return done(null, false, info);
+        }
+
         const userData = {
           id: user._id,
           email: user.email,
@@ -130,6 +138,46 @@ passport.use(
           };
           return done(null, false, info);
         }
+        return done(null, user);
+      } catch (error) {
+        return done(error);
+      }
+    }
+  )
+);
+
+passport.use(
+  "verify",
+  new LocalStrategy(
+    {
+      usernameField: "email",
+      passwordField: "verifyCode",
+      passReqToCallback: true,
+    },
+    async (req, email, verifyCode, done) => {
+      try {
+        const user = await userService.getUserByEmail(email);
+        if (!user) {
+          return done(null, false, {
+            message: `El usuario con el email ${email} no existe.`,
+          });
+        }
+
+        if (user.isVerified) {
+          return done(null, false, {
+            message: `El usuario con el email ${email} ya ha sido verificado.`,
+          });
+        }
+
+        if (user.verifyCode !== verifyCode) {
+          return done(null, false, {
+            message: `El código de verificación es incorrecto.`,
+          });
+        }
+
+        user.isVerified = true;
+        await userService.updateUserByID(user._id, user);
+
         return done(null, user);
       } catch (error) {
         return done(error);
