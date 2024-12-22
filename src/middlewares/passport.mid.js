@@ -24,13 +24,15 @@ passport.use(
           });
         }
 
-        const hashedPassword = hashPassword(password);
         const verifyCode = crypto.randomBytes(6).toString("hex");
+        const hashedPassword = hashPassword(password);
         const newUser = await userService.createUser({
           ...req.body,
           password: hashedPassword,
           verifyCode,
+          isVerified: false,
         });
+
         await sendVerificationEmail(newUser, verifyCode);
 
         return done(null, newUser);
