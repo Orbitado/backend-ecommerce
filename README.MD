@@ -43,6 +43,8 @@ JWT_SECRET=<your-secret-key>
 SESSION_SECRET_KEY=<your-session-passport-key>
 PERSISTENCE = <"mongodb" || "filesystem">
 PORT = <your-port>
+USER_EMAIL=<your-email-user>
+USER_PASSWORD=<your-email-oneview-password>
 ```
 
 ### Start the development server
@@ -91,6 +93,7 @@ Once the server is running, use tools like Postman, Insomnia, or a frontend clie
 - `POST /sessions/login` - Log in a user.
 - `POST /sessions/signout` - Log out the user.
 - `POST /sessions/current` - Retrieve the current user's session details.
+- `POST /sessions/verify` - Verify a user.
 
 ---
 
@@ -102,10 +105,10 @@ Once the server is running, use tools like Postman, Insomnia, or a frontend clie
 
 ```json
 {
-        "first_name": "Juan",
-        "last_name": "Pérez",
+        "first_name": "Juan Pablo",
+        "last_name": "Valdez",
         "age": 30,
-        "email": "juanv@example.com",
+        "email": "juanpaavaldezz@gmail.com",
         "password": "securePassword123"
 }
 ```
@@ -116,16 +119,52 @@ Once the server is running, use tools like Postman, Insomnia, or a frontend clie
 {
     "message": "Usuario registrado exitosamente.",
     "user": {
-        "first_name": "Juan",
-        "last_name": "Pérez",
-        "email": "juanv@example.com",
+        "first_name": "Juan Pablo",
+        "last_name": "Valdez",
+        "email": "juanpaavaldezz@gmail.com",
         "age": 30,
-        "password": "$2b$10$3wQKDdrAIRcVxDtyaWbnJ.sIGA4Pjp7bjnXNtn3bDKycekukJWVc6",
+        "password": "$2b$10$.KcxObp5YdkikaALKmlfE.6sGbHPt9bIk9jplGqVL4BD48UuCUBlG",
         "cart": null,
         "role": "USER",
+        "isVerified": false,
+        "verifyCode": "8b8179536a16",
         "active": false,
         "token": null,
-        "_id": "6765ca0d53827b25888897d0",
+        "_id": "67675daf76fb74d44edbbf7e",
+        "__v": 0
+    }
+}
+```
+
+**Verify a User**  
+**Endpoint:** `POST /api/sessions/verify`  
+**Request Body:**
+
+```json
+{
+        "email": "juan@example.com",
+        "verifyCode": "8b8179536a16"
+}
+```
+
+**Response:**
+
+```json
+{
+    "message": "Usuario verificado exitosamente.",
+    "user": {
+        "_id": "676761a5dfa2b4c385528fda",
+        "first_name": "Juan Pablo",
+        "last_name": "Valdez",
+        "email": "juanpaavaldezz@gmail.com",
+        "age": 30,
+        "password": "$2b$10$mv6fyrwBVry5aeGGpt0JV.P9sXUslkw6EsmWGk.8JNd3wAU6NiepG",
+        "cart": null,
+        "role": "USER",
+        "isVerified": true,
+        "verifyCode": "8b8179536a16",
+        "active": false,
+        "token": null,
         "__v": 0
     }
 }
