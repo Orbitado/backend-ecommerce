@@ -1,4 +1,3 @@
-import { hashPassword } from "../../../utils/hash.util.js";
 import UserModel from "../models/user.model.js";
 
 class userDBManager {
@@ -48,7 +47,6 @@ class userDBManager {
 
       const user = new UserModel({
         ...userData,
-        password: hashPassword(userData.password),
       });
       await user.save();
       return user;

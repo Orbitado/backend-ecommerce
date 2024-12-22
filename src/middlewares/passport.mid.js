@@ -61,7 +61,7 @@ passport.use(
           };
           return done(null, false, info);
         }
-
+        console.log(password, user.password);
         const isValidPassword = comparePassword(password, user.password);
         if (!isValidPassword) {
           const info = { message: "Contraseña incorrecta.", statusCode: 401 };
