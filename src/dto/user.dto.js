@@ -1,4 +1,5 @@
 import dotenv from "dotenv";
+import { hashPassword } from "../utils/hash.util.js";
 
 dotenv.config();
 
